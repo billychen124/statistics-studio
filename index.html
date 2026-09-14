@@ -59,6 +59,11 @@ function parsePaste(){const txt=document.getElementById('pasteBox').value.trim()
 function parseEnter(){const headers=document.getElementById('enterHeaders').value.split(',').map(s=>s.trim()).filter(Boolean);const lines=document.getElementById('enterRows').value.trim().split(/\r?\n/).filter(Boolean);currentData=lines.map(line=>{const vals=line.split(','),o={};headers.forEach((h,i)=>o[h]=(vals[i]??"").trim());return o});render("Key-in")}
 function loadExample(){const Y=[498.8,503.6,526.6,511.1,526.6,511.2,522.2,549.4,553.1,548.6,551.7,540.4,557,575.6,582.6,563.8,572.7,576.7,595,599.9];currentData=Y.map((y,i)=>({Run:i+1,Temperature:300+i*5,FilmThickness:y}));render("REG-01-DATA-01 v1.1 Locked")}
 function render(source){if(!currentData.length)return;const headers=Object.keys(currentData[0]);document.querySelector('#dataTable thead').innerHTML='<tr>'+headers.map(h=>`<th>${esc(h)}</th>`).join('')+'</tr>';document.querySelector('#dataTable tbody').innerHTML=currentData.map(r=>'<tr>'+headers.map(h=>`<td>${esc(String(r[h]??""))}</td>`).join('')+'</tr>').join('');document.getElementById('shapeInfo').textContent=`${currentData.length} rows × ${headers.length} columns`;document.getElementById('status').textContent=`✓ 已載入：${source}`;fill('xSelect',headers);fill('ySelect',headers);if(headers.length>=2){document.getElementById('xSelect').selectedIndex=0;document.getElementById('ySelect').selectedIndex=1}}
+function fill(id,headers){
+  document.getElementById(id).innerHTML =
+    '<option value="">— 請選擇 —</option>' +
+    headers.map(h=>`<option>${esc(h)}</option>`).join('');
+}
 function confirmVars(){
   if(!currentData.length){
     alert('請先載入資料');
