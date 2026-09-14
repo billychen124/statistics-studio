@@ -62,6 +62,5 @@ function render(source){if(!currentData.length)return;const headers=Object.keys(
 function fill(id,headers){document.getElementById(id).innerHTML=headers.map(h=>`<option>${esc(h)}</option>`).join('')}
 function confirmVars(){if(!currentData.length){alert("請先載入資料");return}const x=document.getElementById('xSelect').value,y=document.getElementById('ySelect').value;document.getElementById('confirmStatus').textContent=`✓ 已確認：X = ${x}，Y = ${y}`}
 function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-loadExample();
 </script>
 </body></html>
